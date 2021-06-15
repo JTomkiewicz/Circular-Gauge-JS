@@ -13,17 +13,18 @@
         data-type="radial-gauge"
         data-width="600"
         data-height="600"
-        data-min-value="0"
-        data-max-value="100"
+        data-min-value="-50"
+        data-max-value="50"
         data-minor-ticks="2"
         data-stroke-ticks="true"
+        data-major-ticks="-50,-30,-10,0,10,30,50"
         data-highlights='[
-            { "from": 0, "to": 50, "color": "rgba(0,255,0,.15)" },
-            { "from": 50, "to": 100, "color": "rgba(255,255,0,.15)" },
-            { "from": 100, "to": 150, "color": "rgba(255,30,0,.25)" },
-            { "from": 150, "to": 200, "color": "rgba(255,0,225,.25)" },
-            { "from": 200, "to": 220, "color": "rgba(0,0,255,.25)" }
-        ]'
+            { "from": -10, "to": 10, "color": "rgba(0,255,0,.15)" },
+            { "from": -30, "to": -10, "color": "rgba(255,255,0,.15)" },
+            { "from": 10, "to": 30, "color": "rgba(255,255,0,.15)" },
+            { "from": -50, "to": -30, "color": "rgba(255,30,0,.25)" },
+            { "from": 30, "to": 50, "color": "rgba(255,30,0,.25)" }
+            ]'
         data-ticks-angle="225"
         data-start-angle="67.5"
         data-color-major-ticks="#ddd"
@@ -37,7 +38,7 @@
         data-needle-circle-size="7"
         data-needle-circle-outer="true"
         data-needle-circle-inner="false"
-        data-animation-duration="0"
+        data-animation-duration="20"
         data-animation-rule="linear"
         data-color-border-outer="#333"
         data-color-border-outer-end="#111"
@@ -53,6 +54,9 @@
     </div>
 
     <input id="keyInput" />
+
+    <h1>Tryb:</h1>
+    <h1 id="modeLabel">123</h1>
   </body>
 </html>
 
@@ -63,40 +67,64 @@
 
       //measureData = parseFloat(measureData);
 
+      var textData = false;
+
+      switch (measureData) {
+        case "automatic mode;one second 8 time":
+          document.getElementById("modeLabel").innerHTML =
+            "Tryb automatyczny (8 pomiarów w 1 sekunda)";
+          textData = true;
+          break;
+
+        case "automatic mode;one second 4 time":
+          document.getElementById("modeLabel").innerHTML =
+            "Tryb automatyczny (4 pomiary w 1 sekunda)";
+          textData = true;
+          break;
+
+        case "automatic mode;one second 2 time":
+          document.getElementById("modeLabel").innerHTML =
+            "Tryb automatyczny (2 pomiary w 1 sekunda)";
+          textData = true;
+          break;
+
+        case "automatic mode;one second 1 time":
+          document.getElementById("modeLabel").innerHTML =
+            "Tryb automatyczny (1 pomiar w 1 sekunda)";
+          textData = true;
+          break;
+
+        case "manual mode":
+          document.getElementById("modeLabel").innerHTML = "Tryb manualny";
+          textData = true;
+          break;
+
+        default:
+          break;
+      }
+
       //alert(measureData);
-      document.gauges.forEach(function (gauge) {
-        gauge.value = measureData;
-      });
+      var firstTwoChars = measureData.substring(0, 2);
+
+      if (firstTwoChars == "0-") {
+        measureData = measureData.substring(1, measureData.length - 1);
+      }
+
+      if (textData == false) {
+        document.gauges.forEach(function (gauge) {
+          gauge.value = measureData;
+        });
+      }
 
       document.getElementById("keyInput").value = "";
     }
   });
-
-  function animateGauges() {
-    document.gauges.forEach(function (gauge) {
-      timers.push(
-        setInterval(function () {
-          gauge.value =
-            Math.random() * (gauge.options.maxValue - gauge.options.minValue) +
-            gauge.options.minValue;
-        }, gauge.animation.duration + 50)
-      );
-    });
-  }
 
   function resize() {
     var size = parseFloat(document.getElementById("gauge-size").value) || 400;
 
     document.gauges.forEach(function (gauge) {
       gauge.update({ width: size, height: size });
-    });
-  }
-
-  function setText() {
-    var text = document.getElementById("gauge-text").value;
-
-    document.gauges.forEach(function (gauge) {
-      gauge.update({ valueText: text });
     });
   }
 </script>
