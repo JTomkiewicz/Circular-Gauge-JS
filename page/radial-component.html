@@ -38,7 +38,7 @@
         data-needle-circle-size="7"
         data-needle-circle-outer="true"
         data-needle-circle-inner="false"
-        data-animation-duration="20"
+        data-animation-duration="5"
         data-animation-rule="linear"
         data-color-border-outer="#333"
         data-color-border-outer-end="#111"
@@ -61,56 +61,56 @@
 </html>
 
 <script>
+  var textData = false;
+  var measureData;
+
   document.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
-      var measureData = document.getElementById("keyInput").value;
+      measureData = document.getElementById("keyInput").value;
 
-      //measureData = parseFloat(measureData);
+      if (
+        measureData.substring(0, 1) == "a" ||
+        measureData.substring(0, 1) == "m"
+      ) {
+        textData = true;
 
-      var textData = false;
+        switch (measureData) {
+          case "automatic mode;one second 8 time":
+            document.getElementById("modeLabel").innerHTML =
+              "Tryb automatyczny (8 pomiarów w 1 sekunda)";
+            break;
 
-      switch (measureData) {
-        case "automatic mode;one second 8 time":
-          document.getElementById("modeLabel").innerHTML =
-            "Tryb automatyczny (8 pomiarów w 1 sekunda)";
-          textData = true;
-          break;
+          case "automatic mode;one second 4 time":
+            document.getElementById("modeLabel").innerHTML =
+              "Tryb automatyczny (4 pomiary w 1 sekunda)";
+            break;
 
-        case "automatic mode;one second 4 time":
-          document.getElementById("modeLabel").innerHTML =
-            "Tryb automatyczny (4 pomiary w 1 sekunda)";
-          textData = true;
-          break;
+          case "automatic mode;one second 2 time":
+            document.getElementById("modeLabel").innerHTML =
+              "Tryb automatyczny (2 pomiary w 1 sekunda)";
+            break;
 
-        case "automatic mode;one second 2 time":
-          document.getElementById("modeLabel").innerHTML =
-            "Tryb automatyczny (2 pomiary w 1 sekunda)";
-          textData = true;
-          break;
+          case "automatic mode;one second 1 time":
+            document.getElementById("modeLabel").innerHTML =
+              "Tryb automatyczny (1 pomiar w 1 sekunda)";
+            break;
 
-        case "automatic mode;one second 1 time":
-          document.getElementById("modeLabel").innerHTML =
-            "Tryb automatyczny (1 pomiar w 1 sekunda)";
-          textData = true;
-          break;
+          case "manual mode":
+            document.getElementById("modeLabel").innerHTML = "Tryb manualny";
+            break;
 
-        case "manual mode":
-          document.getElementById("modeLabel").innerHTML = "Tryb manualny";
-          textData = true;
-          break;
-
-        default:
-          break;
-      }
-
-      //alert(measureData);
-      var firstTwoChars = measureData.substring(0, 2);
-
-      if (firstTwoChars == "0-") {
-        measureData = measureData.substring(1, measureData.length - 1);
+          default:
+            break;
+        }
+      } else {
+        textData = false;
       }
 
       if (textData == false) {
+        if (measureData.substring(0, 2) == "0-") {
+          measureData = measureData.substring(1, measureData.length - 1);
+        }
+
         document.gauges.forEach(function (gauge) {
           gauge.value = measureData;
         });
