@@ -7,7 +7,7 @@
     <script src="../gauge.min.js"></script>
   </head>
 
-  <body style="background: #222">
+  <body style="background: rgb(73, 73, 73)">
     <div style="text-align: center">
       <canvas
         data-type="radial-gauge"
@@ -32,7 +32,7 @@
         data-color-title="#eee"
         data-color-units="#ccc"
         data-color-numbers="#eee"
-        data-color-plate="#222"
+        data-color-plate="rgb(73, 73, 73)"
         data-border-shadow-width="0"
         data-borders="true"
         data-needle-circle-size="7"
@@ -42,7 +42,7 @@
         data-animation-rule="linear"
         data-color-border-outer="#333"
         data-color-border-outer-end="#111"
-        data-color-border-middle="#222"
+        data-color-border-middle="rgb(73, 73, 73)"
         data-color-border-middle-end="#111"
         data-color-border-inner="#111"
         data-color-border-inner-end="#333"
@@ -53,9 +53,11 @@
       ></canvas>
     </div>
 
-    <input id="keyInput" />
+    <div style="text-align: center">
+      <label id="labelInput" for="keyInput"><b>Start</b></label>
+      <input id="keyInput" />
+    </div>
 
-    <h1>Tryb:</h1>
     <h1 id="modeLabel">Tryb manualny</h1>
   </body>
 </html>
@@ -120,11 +122,42 @@
     }
   });
 
-  function resize() {
-    var size = parseFloat(document.getElementById("gauge-size").value) || 400;
+  // function resize() {
+  //   var size = parseFloat(document.getElementById("gauge-size").value) || 400;
 
-    document.gauges.forEach(function (gauge) {
-      gauge.update({ width: size, height: size });
-    });
-  }
+  //   document.gauges.forEach(function (gauge) {
+  //     gauge.update({ width: size, height: size });
+  //   });
+  // }
+  window.addEventListener(
+    "resize",
+    function (event) {
+      document.gauges.forEach(function (gauge) {
+        gauge.update({
+          width: window.innerWidth * 0.4,
+          height: window.innerWidth * 0.4,
+        });
+      });
+    },
+    true
+  );
 </script>
+
+<style>
+  #modeLabel {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #keyInput {
+    width: 0%;
+    height: 0%;
+    opacity: 0;
+  }
+  #labelInput {
+    font-size: 4vw;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+</style>
