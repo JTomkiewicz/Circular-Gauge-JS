@@ -58,7 +58,10 @@
       <input id="keyInput" onfocusin="focusIn()" onfocusout="focusOut()" />
     </div>
 
-    <h1 id="modeLabel">Tryb manualny</h1>
+    <div style="text-align: center; margin-top: 20px">
+      <h1 id="modeLabel">Tryb manualny</h1>
+      <h1 id="unitLabel">Unit: mm</h1>
+    </div>
   </body>
 </html>
 
@@ -72,7 +75,8 @@
 
       if (
         measureData.substring(0, 1) == "a" ||
-        measureData.substring(0, 1) == "m"
+        measureData.substring(0, 1) == "m" ||
+        measureData.substring(0, 1) == "u"
       ) {
         textData = true;
 
@@ -99,6 +103,14 @@
 
           case "manual mode":
             document.getElementById("modeLabel").innerHTML = "Tryb manualny";
+            break;
+
+          case "unit;in":
+            document.getElementById("unitLabel").innerHTML = "Unit: in";
+            break;
+
+          case "unit;mm":
+            document.getElementById("unitLabel").innerHTML = "Unit: mm";
             break;
 
           default:
@@ -146,10 +158,11 @@
 </script>
 
 <style>
-  #modeLabel {
+  #modeLabel,
+  #unitLabel {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 3vw;
+    font-size: 2vw;
   }
   #keyInput {
     width: 0%;
