@@ -17,7 +17,7 @@
         data-max-value="50"
         data-minor-ticks="2"
         data-stroke-ticks="true"
-        data-major-ticks="-50,-30,-10,0,10,30,50"
+        data-major-ticks="-50,-40,-30,-20,-10,0,10,20,30,40,50"
         data-highlights='[
             { "from": -10, "to": 10, "color": "rgba(0,255,0,.15)" },
             { "from": -30, "to": -10, "color": "rgba(255,255,0,.15)" },
@@ -53,9 +53,9 @@
       ></canvas>
     </div>
 
-    <div style="text-align: center">
+    <div style="text-align: center; margin-top: 20px">
       <label id="labelInput" for="keyInput"><b>Start</b></label>
-      <input id="keyInput" />
+      <input id="keyInput" onfocusin="focusIn()" onfocusout="focusOut()" />
     </div>
 
     <h1 id="modeLabel">Tryb manualny</h1>
@@ -134,12 +134,22 @@
     },
     true
   );
+
+  function focusIn() {
+    document.getElementById("labelInput").innerHTML = "<b>Ok</b>";
+    document.getElementById("labelInput").style.backgroundColor = "green";
+  }
+  function focusOut() {
+    document.getElementById("labelInput").innerHTML = "<b>Start</b>";
+    document.getElementById("labelInput").style.backgroundColor = "red";
+  }
 </script>
 
 <style>
   #modeLabel {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 3vw;
   }
   #keyInput {
     width: 0%;
