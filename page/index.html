@@ -7,12 +7,14 @@
     <script src="../gauge.min.js"></script>
   </head>
 
-  <body style="background: rgb(73, 73, 73)">
-    <div style="text-align: center">
+  <body style="background: #494949">
+    <div
+      style="float: left; padding-top: 3%; padding-bottom: 3%; padding-left: 8%"
+    >
       <canvas
         data-type="radial-gauge"
-        data-width="600"
-        data-height="600"
+        data-width="650"
+        data-height="650"
         data-min-value="-50"
         data-max-value="50"
         data-minor-ticks="2"
@@ -53,14 +55,16 @@
       ></canvas>
     </div>
 
-    <div style="text-align: center; margin-top: 20px">
-      <label id="labelInput" for="keyInput"><b>Start</b></label>
-      <input id="keyInput" onfocusin="focusIn()" onfocusout="focusOut()" />
-    </div>
+    <div style="height: 500px">
+      <div style="text-align: center; padding-top: 20%">
+        <label id="labelInput" for="keyInput"><b>Start</b></label>
+        <input id="keyInput" onfocusin="focusIn()" onfocusout="focusOut()" />
+      </div>
 
-    <div style="text-align: center; margin-top: 20px">
-      <h1 id="modeLabel">Tryb manualny</h1>
-      <h1 id="unitLabel">Unit: mm</h1>
+      <div style="text-align: center">
+        <h1 id="modeLabel">Tryb manualny</h1>
+        <h1 id="unitLabel">Unit: mm</h1>
+      </div>
     </div>
   </body>
 </html>
@@ -139,8 +143,8 @@
     function (event) {
       document.gauges.forEach(function (gauge) {
         gauge.update({
-          width: window.innerWidth * 0.6,
-          height: window.innerWidth * 0.6,
+          width: window.innerWidth * 0.5,
+          height: window.innerWidth * 0.5,
         });
       });
     },
