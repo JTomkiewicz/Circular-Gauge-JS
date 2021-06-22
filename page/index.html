@@ -73,10 +73,13 @@
   var textData = false;
   var measureData;
 
+  //when ENTER is seen
   document.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
+      //get value from input field
       measureData = document.getElementById("keyInput").value;
 
+      //check if data is string
       if (
         measureData.substring(0, 1) == "a" ||
         measureData.substring(0, 1) == "m" ||
@@ -124,20 +127,25 @@
         textData = false;
       }
 
+      //there was a number in input
       if (textData == false) {
         if (measureData.substring(0, 2) == "0-") {
+          //if negative number cut first character
           measureData = measureData.substring(1, measureData.length - 1);
         }
 
+        //set value to gauge
         document.gauges.forEach(function (gauge) {
           gauge.value = measureData;
         });
       }
 
+      //reset input
       document.getElementById("keyInput").value = "";
     }
   });
 
+  //when window is resized change gauge size
   window.addEventListener(
     "resize",
     function (event) {
@@ -152,10 +160,13 @@
   );
 
   function focusIn() {
-    document.getElementById("labelInput").innerHTML = "<b>Ok</b>";
+    //when input has focus
+    document.getElementById("labelInput").innerHTML = "<b>OK</b>";
     document.getElementById("labelInput").style.backgroundColor = "green";
   }
+
   function focusOut() {
+    //when input loses focus change button back to start
     document.getElementById("labelInput").innerHTML = "<b>Start</b>";
     document.getElementById("labelInput").style.backgroundColor = "red";
   }
