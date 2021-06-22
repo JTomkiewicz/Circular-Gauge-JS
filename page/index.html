@@ -5,6 +5,7 @@
     <title>Odchyleniomierz</title>
     <link rel="stylesheet" href="../fonts/fonts.css" />
     <script src="../gauge.min.js"></script>
+    <script src="config.js"></script>
   </head>
 
   <body style="background: #494949">
@@ -17,7 +18,7 @@
         data-height="650"
         data-min-value="-50"
         data-max-value="50"
-        data-minor-ticks="2"
+        data-minor-ticks="4"
         data-stroke-ticks="true"
         data-major-ticks="-50,-40,-30,-20,-10,0,10,20,30,40,50"
         data-highlights='[
@@ -170,6 +171,16 @@
     document.getElementById("labelInput").innerHTML = "<b>Start</b>";
     document.getElementById("labelInput").style.backgroundColor = "red";
   }
+
+  window.onload = function () {
+    document.gauges.forEach(function (gauge) {
+      gauge.update({
+        minValue: minimum,
+        maxValue: maksimum,
+        majorTicks: znaczniki,
+      });
+    });
+  };
 </script>
 
 <style>
