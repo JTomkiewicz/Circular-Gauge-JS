@@ -14,13 +14,8 @@
     >
       <canvas
         data-type="radial-gauge"
-        data-width="650"
-        data-height="650"
-        data-min-value="-50"
-        data-max-value="50"
         data-minor-ticks="4"
         data-stroke-ticks="true"
-        data-major-ticks="-50,-40,-30,-20,-10,0,10,20,30,40,50"
         data-highlights='[
             { "from": -10, "to": 10, "color": "rgba(0,255,0,.15)" },
             { "from": -30, "to": -10, "color": "rgba(255,255,0,.15)" },
@@ -137,7 +132,7 @@
 
         //set value to gauge
         document.gauges.forEach(function (gauge) {
-          gauge.value = measureData;
+          gauge.value = measureData * mnoznik;
         });
       }
 
@@ -178,6 +173,8 @@
         minValue: minimum,
         maxValue: maksimum,
         majorTicks: znaczniki,
+        width: window.innerWidth * 0.5,
+        height: window.innerWidth * 0.5,
       });
     });
   };
