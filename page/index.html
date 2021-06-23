@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Odchyleniomierz</title>
     <link rel="stylesheet" href="../fonts/fonts.css" />
+    <link rel="icon" href="../favicon.png" />
     <script src="../gauge.min.js"></script>
     <script src="config.js"></script>
   </head>
@@ -161,6 +162,7 @@
   }
 
   window.onload = function () {
+    //highlights adapt to variables set in config
     var colorString = [
       { from: -1 * zielony, to: zielony, color: "rgba(0,255,0,.15)" },
       {
@@ -177,6 +179,7 @@
       { from: pomaranczowy, to: czerwony, color: "rgba(255,30,0,.25)" },
     ];
 
+    //set values to gauge
     document.gauges.forEach(function (gauge) {
       gauge.update({
         minValue: minimum,
