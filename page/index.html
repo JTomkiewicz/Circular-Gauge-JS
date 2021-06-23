@@ -16,13 +16,6 @@
         data-type="radial-gauge"
         data-minor-ticks="4"
         data-stroke-ticks="true"
-        data-highlights='[
-            { "from": -10, "to": 10, "color": "rgba(0,255,0,.15)" },
-            { "from": -30, "to": -10, "color": "rgba(255,255,0,.15)" },
-            { "from": 10, "to": 30, "color": "rgba(255,255,0,.15)" },
-            { "from": -50, "to": -30, "color": "rgba(255,30,0,.25)" },
-            { "from": 30, "to": 50, "color": "rgba(255,30,0,.25)" }
-            ]'
         data-ticks-angle="225"
         data-start-angle="67.5"
         data-color-major-ticks="#ddd"
@@ -168,6 +161,22 @@
   }
 
   window.onload = function () {
+    var colorString = [
+      { from: -1 * zielony, to: zielony, color: "rgba(0,255,0,.15)" },
+      {
+        from: -1 * pomaranczowy,
+        to: -1 * zielony,
+        color: "rgba(255,255,0,.15)",
+      },
+      { from: zielony, to: pomaranczowy, color: "rgba(255,255,0,.15)" },
+      {
+        from: -1 * czerwony,
+        to: -1 * pomaranczowy,
+        color: "rgba(255,30,0,.25)",
+      },
+      { from: pomaranczowy, to: czerwony, color: "rgba(255,30,0,.25)" },
+    ];
+
     document.gauges.forEach(function (gauge) {
       gauge.update({
         minValue: minimum,
@@ -175,6 +184,7 @@
         majorTicks: znaczniki,
         width: window.innerWidth * 0.5,
         height: window.innerWidth * 0.5,
+        highlights: colorString,
       });
     });
   };
