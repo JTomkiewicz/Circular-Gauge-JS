@@ -46,7 +46,7 @@
     </div>
 
     <div style="height: 500px">
-      <div style="text-align: center; padding-top: 20%">
+      <div style="text-align: center; padding-top: 10%">
         <label id="labelInput" for="keyInput"><b>Start</b></label>
         <input id="keyInput" onfocusin="focusIn()" onfocusout="focusOut()" />
       </div>
@@ -56,12 +56,32 @@
         <h1 id="unitLabel">Unit: mm</h1>
       </div>
     </div>
+
+    <div>
+      <h1 id="pressSpaceLabel">Naciśnij spację, aby zapisać wynik</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Godzina</th>
+            <th>Pomiar</th>
+          </tr>
+        </thead>
+
+        <tbody id="tableBody"></tbody>
+      </table>
+
+      <button onclick="clearSavedData()">Wyczyść zapisane</button>
+    </div>
   </body>
 </html>
 
 <script>
   var textData = false;
   var measureData;
+  var saveData = false;
+  var date = new Date();
+  var isFocus = false;
 
   //when ENTER is seen
   document.addEventListener("keyup", function (event) {
@@ -124,6 +144,16 @@
           measureData = measureData.substring(1, measureData.length - 1);
         }
 
+        if (saveData && isFocus) {
+          date = new Date();
+
+          document.getElementById(
+            "tableBody"
+          ).innerHTML += `<tr><td>${date.getHours()}:${date.getMinutes()}</td><td>${measureData}</td></tr>`;
+
+          saveData = false;
+        }
+
         //set value to gauge
         document.gauges.forEach(function (gauge) {
           gauge.value = measureData * mnoznik;
@@ -150,12 +180,14 @@
   );
 
   function focusIn() {
+    isFocus = true;
     //when input has focus
     document.getElementById("labelInput").innerHTML = "<b>OK</b>";
     document.getElementById("labelInput").style.backgroundColor = "green";
   }
 
   function focusOut() {
+    isFocus = false;
     //when input loses focus change button back to start
     document.getElementById("labelInput").innerHTML = "<b>Start</b>";
     document.getElementById("labelInput").style.backgroundColor = "red";
@@ -191,11 +223,24 @@
       });
     });
   };
+
+  //when SPACE is pressed
+  document.addEventListener("keyup", function (event) {
+    if (event.keyCode === 32) {
+      saveData = true;
+    }
+  });
+
+  //clear saved data from table
+  function clearSavedData() {
+    document.getElementById("tableBody").innerHTML = "";
+  }
 </script>
 
 <style>
   #modeLabel,
-  #unitLabel {
+  #unitLabel,
+  #pressSpaceLabel {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2vw;
