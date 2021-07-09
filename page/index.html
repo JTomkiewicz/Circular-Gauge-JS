@@ -11,7 +11,7 @@
 
   <body style="background: #494949">
     <div
-      style="float: left; padding-top: 3%; padding-bottom: 3%; padding-left: 8%"
+      style="float: left; padding-top: 3%; padding-bottom: 3%; padding-left: 5%"
     >
       <canvas
         data-type="radial-gauge"
@@ -45,33 +45,43 @@
       ></canvas>
     </div>
 
-    <div style="height: 400px">
-      <div style="text-align: center; padding-top: 10%">
-        <label id="labelInput" for="keyInput"><b>Start</b></label>
-        <input id="keyInput" onfocusin="focusIn()" onfocusout="focusOut()" />
+    <div style="overflow: hidden">
+      <div>
+        <center>
+          <div style="height: 30vh; padding-top: 15vh">
+            <label id="labelInput" for="keyInput"><b>Start</b></label>
+            <input
+              id="keyInput"
+              onfocusin="focusIn()"
+              onfocusout="focusOut()"
+            />
+
+            <h1 id="modeLabel">Tryb manualny</h1>
+            <h1 id="unitLabel">Unit: mm</h1>
+          </div>
+        </center>
       </div>
 
-      <div style="text-align: center">
-        <h1 id="modeLabel">Tryb manualny</h1>
-        <h1 id="unitLabel">Unit: mm</h1>
+      <div>
+        <center>
+          <h1 id="pressSpaceLabel">Naciśnij spację, aby zapisać wynik</h1>
+
+          <table id="tableMeasurements">
+            <thead>
+              <tr>
+                <th>Godzina</th>
+                <th>Pomiar</th>
+              </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+          </table>
+
+          <button id="clearBtn" onclick="clearSavedData()">
+            <b> Wyczyść zapisane </b>
+          </button>
+        </center>
       </div>
-    </div>
-
-    <div style="text-align: center">
-      <h1 id="pressSpaceLabel">Naciśnij spację, aby zapisać wynik</h1>
-
-      <table id="tableMeasurements">
-        <thead>
-          <tr>
-            <th>Godzina</th>
-            <th>Pomiar</th>
-          </tr>
-        </thead>
-
-        <tbody id="tableBody"></tbody>
-      </table>
-
-      <text id="clearBtn" onclick="clearSavedData()">Wyczyść zapisane</text>
     </div>
   </body>
 </html>
@@ -264,14 +274,16 @@
     cursor: pointer;
   }
   #clearBtn {
-    font-size: 1vw !important;
-    padding-top: 3px;
+    font-size: 1.1vw !important;
+    border: none;
+    margin-top: 2vh;
   }
   #tableMeasurements {
-    width: 20vw;
+    width: 30vw;
     border: 1px solid white;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 5px;
+    font-size: 1.1vw;
   }
 </style>
