@@ -110,6 +110,7 @@
         textData = true;
 
         switch (measureData) {
+          //modes
           case "automatic mode;one second 8 time":
             document.getElementById("modeLabel").innerHTML =
               "Tryb automatyczny (8 pomiarów w 1 sekunda)";
@@ -134,6 +135,7 @@
             document.getElementById("modeLabel").innerHTML = "Tryb manualny";
             break;
 
+          //units
           case "unit;in":
             document.getElementById("unitLabel").innerHTML = "Unit: in";
             break;
@@ -142,6 +144,7 @@
             document.getElementById("unitLabel").innerHTML = "Unit: mm";
             break;
 
+          //default
           default:
             break;
         }
@@ -151,17 +154,28 @@
 
       //there was a number in input
       if (textData == false) {
+        //if there is space in number, delete in
+        measureData = measureData.split(" ").join("");
+
         if (measureData.substring(0, 2) == "0-") {
           //if negative number cut first character
           measureData = measureData.substring(1, measureData.length - 1);
         }
 
+        //if space was pressed to save data
         if (saveData && isFocus) {
           date = new Date();
 
+          minutes = date.getMinutes();
+
+          if (date.getMinutes() < 10) {
+            minutes = "0" + date.getMinutes();
+          }
+
+          //add row to table body
           document.getElementById(
             "tableBody"
-          ).innerHTML += `<tr><td style="text-align: center">${date.getHours()}:${date.getMinutes()}</td><td style="text-align: center">${measureData}</td></tr>`;
+          ).innerHTML += `<tr><td style="text-align: center">${date.getHours()}:${minutes}</td><td style="text-align: center">${measureData}</td></tr>`;
 
           saveData = false;
         }
